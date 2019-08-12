@@ -2,6 +2,14 @@
 $is_auth = rand(0, 1);
 
 $user_name = 'Иван'; // укажите здесь ваше имя
+
+function price_format(int $price) {
+    $ceilPrice = ceil($price);
+    $numberFormatPrice = number_format($ceilPrice, 0, ' ', ' ');
+    $finalPriceFormat = $numberFormatPrice.'<b class="rub">р</b>'; 
+    return $finalPriceFormat;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -75,7 +83,7 @@ $user_name = 'Иван'; // укажите здесь ваше имя
                     <div class="lot__state">
                         <div class="lot__rate">
                             <span class="lot__amount">Стартовая цена</span>
-                            <span class="lot__cost">цена<b class="rub">р</b></span>
+                            <span class="lot__cost"><?=price_format(54999);?></span>
                         </div>
                         <div class="lot__timer timer">
                             12:23
