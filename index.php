@@ -67,7 +67,8 @@ $user_name = 'Иван'; // укажите здесь ваше имя
             <!--заполните этот список из массива категорий-->
             <?php foreach ($arMenu as $item): ?>
                 <li class="promo__item promo__item--boards">
-                    <a class="promo__link" href="pages/all-lots.html"><?=$item;?></a>
+                	<?php $menuItem = isset($item) ? $item : "";  ?>
+                    <a class="promo__link" href="pages/all-lots.html"><?=$menuItem;?></a>
                 </li>
             <?php endforeach; ?>
         </ul>
@@ -116,15 +117,19 @@ $user_name = 'Иван'; // укажите здесь ваше имя
             <?php foreach ($arAds as $arAd): ?>
             	<li class="lots__item lot">
             	    <div class="lot__image">
-            	        <img src="<?=$arAd["IMAGE_URL"];?>" width="350" height="260" alt="">
+            	    	<?php $adUrl = isset($arAd["IMAGE_URL"]) ? $arAd["IMAGE_URL"] : "";  ?>
+            	        <img src="<?=$adUrl;?>" width="350" height="260" alt="">
             	    </div>
             	    <div class="lot__info">
-            	        <span class="lot__category"><?=$arAd["CATEGORY"];?></span>
-            	        <h3 class="lot__title"><a class="text-link" href="pages/lot.html"><?=$arAd["NAME"];?></a></h3>
+            	    	<?php $adCategory = isset($arAd["CATEGORY"]) ? $arAd["CATEGORY"] : "";  ?>
+            	        <span class="lot__category"><?=$adCategory;?></span>
+            	        <?php $adName = isset($arAd["NAME"]) ? $arAd["NAME"] : "";  ?>
+            	        <h3 class="lot__title"><a class="text-link" href="pages/lot.html"><?=$adName;?></a></h3>
             	        <div class="lot__state">
             	            <div class="lot__rate">
+            	            	<?php $adPrice = isset($arAd["PRICE"]) ? $arAd["PRICE"] : "";  ?>
             	                <span class="lot__amount">Стартовая цена</span>
-            	                <span class="lot__cost"><?=$arAd["PRICE"];?><b class="rub">р</b></span>
+            	                <span class="lot__cost"><?=$adPrice;?><b class="rub">р</b></span>
             	            </div>
             	            <div class="lot__timer timer">
             	                12:23
@@ -143,8 +148,9 @@ $user_name = 'Иван'; // укажите здесь ваше имя
         <ul class="nav__list container">
             <!--заполните этот список из массива категорий-->
             <?php foreach ($arMenu as $item): ?>
+                <?php $menuItem = isset($item) ? $item : "";  ?>
             	<li class="nav__item">
-            	    <a href="pages/all-lots.html"><?=$item;?></a>
+            	    <a href="pages/all-lots.html"><?=$menuItem;?></a>
             	</li>
             <?php endforeach; ?>
         </ul>
