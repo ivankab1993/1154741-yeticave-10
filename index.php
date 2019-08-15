@@ -60,11 +60,28 @@ function price_format(int $price) {
     <section class="promo">
         <h2 class="promo__title">Нужен стафф для катки?</h2>
         <p class="promo__text">На нашем интернет-аукционе ты найдёшь самое эксклюзивное сноубордическое и горнолыжное снаряжение.</p>
+        <?php 
+            $arMenu = [];
+            $arMenu = [
+                "Доски и лыжи",
+                "Крепления",
+                "Ботинки",
+                "Одежда",
+                "Инструменты",
+                "Разное",
+            ];
+        ?>
         <ul class="promo__list">
             <!--заполните этот список из массива категорий-->
             <li class="promo__item promo__item--boards">
                 <a class="promo__link" href="pages/all-lots.html">Имя категории</a>
             </li>
+            <?php foreach ($arMenu as $item): ?>
+                <li class="promo__item promo__item--boards">
+                    <?php $menuItem = isset($item) ? $item : "";  ?>
+                    <a class="promo__link" href="pages/all-lots.html"><?=$menuItem;?></a>
+                </li>
+            <?php endforeach; ?>
         </ul>
     </section>
     <section class="lots">
@@ -72,6 +89,41 @@ function price_format(int $price) {
             <h2>Открытые лоты</h2>
         </div>
         <ul class="lots__list">
+            <?php 
+                $arAds = [];
+                $arAds = [
+                    [   "NAME" => "2014 Rossignol District Snowboard",
+                        "CATEGORY" => "Доски и лыжи",
+                        "PRICE" => "10999",
+                        "IMAGE_URL" => "img/lot-1.jpg",
+                    ],
+                    [   "NAME" => "DC Ply Mens 2016/2017 Snowboard",
+                        "CATEGORY" => "Доски и лыжи",
+                        "PRICE" => "159999",
+                        "IMAGE_URL" => "img/lot-2.jpg",
+                    ],
+                    [   "NAME" => "Крепления Union Contact Pro 2015 года размер L/XL",
+                        "CATEGORY" => "Крепления",
+                        "PRICE" => "8000",
+                        "IMAGE_URL" => "img/lot-3.jpg",
+                    ],
+                    [   "NAME" => "Ботинки для сноуборда DC Mutiny Charocal",
+                        "CATEGORY" => "Ботинки",
+                        "PRICE" => "10999",
+                        "IMAGE_URL" => "img/lot-4.jpg",
+                    ],
+                    [   "NAME" => "Куртка для сноуборда DC Mutiny Charocal",
+                        "CATEGORY" => "Одежда",
+                        "PRICE" => "7500",
+                        "IMAGE_URL" => "img/lot-5.jpg",
+                    ],
+                    [   "NAME" => "Маска Oakley Canopy",
+                        "CATEGORY" => "Разное",
+                        "PRICE" => "5400",
+                        "IMAGE_URL" => "img/lot-6.jpg",
+                    ],
+                ];
+            ?>
             <!--заполните этот список из массива с товарами-->
             <li class="lots__item lot">
                 <div class="lot__image">
@@ -91,6 +143,30 @@ function price_format(int $price) {
                     </div>
                 </div>
             </li>
+            <?php foreach ($arAds as $arAd): ?>
+                <li class="lots__item lot">
+                    <div class="lot__image">
+                        <?php $adUrl = isset($arAd["IMAGE_URL"]) ? $arAd["IMAGE_URL"] : "";  ?>
+                        <img src="<?=$adUrl;?>" width="350" height="260" alt="">
+                    </div>
+                    <div class="lot__info">
+                        <?php $adCategory = isset($arAd["CATEGORY"]) ? $arAd["CATEGORY"] : "";  ?>
+                        <span class="lot__category"><?=$adCategory;?></span>
+                        <?php $adName = isset($arAd["NAME"]) ? $arAd["NAME"] : "";  ?>
+                        <h3 class="lot__title"><a class="text-link" href="pages/lot.html"><?=$adName;?></a></h3>
+                        <div class="lot__state">
+                            <div class="lot__rate">
+                                <span class="lot__amount">Стартовая цена</span>
+                                <?php $adPrice = isset($arAd["PRICE"]) ? $arAd["PRICE"] : "";  ?>
+                                <span class="lot__cost"><?=$adPrice;?><b class="rub">р</b></span>
+                            </div>
+                            <div class="lot__timer timer">
+                                12:23
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            <?php endforeach ?>
         </ul>
     </section>
 </main>
@@ -103,6 +179,12 @@ function price_format(int $price) {
             <li class="nav__item">
                 <a href="pages/all-lots.html">Название категории</a>
             </li>
+            <?php foreach ($arMenu as $item): ?>
+                <?php $menuItem = isset($item) ? $item : "";  ?>
+                <li class="nav__item">
+                    <a href="pages/all-lots.html"><?=$menuItem;?></a>
+                </li>
+            <?php endforeach; ?>
         </ul>
     </nav>
     <div class="main-footer__bottom container">
