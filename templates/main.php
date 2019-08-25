@@ -34,11 +34,15 @@
                     <div class="lot__state">
                         <div class="lot__rate">
                             <span class="lot__amount">Стартовая цена</span>
-                            <?php $adPrice = isset($arAd["PRICE"]) ? $arAd["PRICE"] : "";  ?>
+                            <?php $adPrice = isset($arAd["PRICE"]) ? $arAd["PRICE"] : "";?>
                             <span class="lot__cost"><?=price_format(htmlspecialchars($adPrice));?></span>
                         </div>
-                        <div class="lot__timer timer">
-                            12:23
+                            <?php
+                                $adExperationDate = isset($arAd["EXPIRATION_DATE"]) ? $arAd["EXPIRATION_DATE"] : "";
+                                $arExperationDate = get_dt_range(htmlspecialchars($adExperationDate));
+                            ?>
+                        <div class="lot__timer timer<?=(!empty($arExperationDate["TIME_LEFT"]) ? ' timer--finishing' : '');?>">
+                            <?=$arExperationDate["HOURS"].':'.$arExperationDate["MINUTES"];?>
                         </div>
                     </div>
                 </div>
