@@ -16,9 +16,9 @@ CREATE TABLE lots (
   	name CHAR(255) NOT NULL,
   	description TEXT,
  	image CHAR(255),
-  	start_price DECIMAL DEFAULT 0,
+  	start_price DECIMAL(10,2) DEFAULT 0,
   	date_close DATETIME NOT NULL,
-  	step DECIMAL NOT NULL,
+  	step DECIMAL(10,2) NOT NULL DEFAULT 0,
   	author_id INT NOT NULL,
   	winner_id INT NOT NULL,
   	category_id INT NOT NULL
@@ -26,9 +26,8 @@ CREATE TABLE lots (
 
 CREATE TABLE bet (
 	id INT AUTO_INCREMENT PRIMARY KEY,
-  	price DECIMAL,
+  	price DECIMAL(10,2) DEFAULT 0,
   	date_close DATETIME NOT NULL,
-  	step DECIMAL NOT NULL,
   	user_id INT NOT NULL,
   	lot_id INT NOT NULL
 );
