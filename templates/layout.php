@@ -52,13 +52,14 @@
     <nav class="nav">
         <ul class="nav__list container">
             <!--заполните этот список из массива категорий-->
-            <li class="nav__item">
-                <a href="pages/all-lots.html">Название категории</a>
-            </li>
             <?php foreach ($arMenu as $item): ?>
-                <?php $menuItem = isset($item) ? $item : "";  ?>
-                <li class="nav__item">
-                    <a href="pages/all-lots.html"><?=htmlspecialchars($menuItem);?></a>
+                <?php
+                    $menuItemId = isset($item["id"]) ? $item["id"] : "";
+                    $menuItemCode = isset($item["code"]) ? $item["code"] : "";
+                    $menuItemName = isset($item["name"]) ? $item["name"] : "";
+                ?>
+                <li class="nav__item nav__item--<?=$menuItemCode;?>">
+                    <a href="pages/all-lots.html"><?=htmlspecialchars($menuItemName);?></a>
                 </li>
             <?php endforeach; ?>
         </ul>
