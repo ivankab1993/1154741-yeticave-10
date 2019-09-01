@@ -3,13 +3,14 @@
     <p class="promo__text">На нашем интернет-аукционе ты найдёшь самое эксклюзивное сноубордическое и горнолыжное снаряжение.</p>
     <ul class="promo__list">
         <!--заполните этот список из массива категорий-->
-        <li class="promo__item promo__item--boards">
-            <a class="promo__link" href="pages/all-lots.html">Имя категории</a>
-        </li>
         <?php foreach ($arMenu as $item): ?>
-            <li class="promo__item promo__item--boards">
-                <?php $menuItem = isset($item) ? $item : "";  ?>
-                <a class="promo__link" href="pages/all-lots.html"><?=htmlspecialchars($menuItem);?></a>
+            <?php
+                $menuItemId = isset($item["id"]) ? $item["id"] : "";
+                $menuItemCode = isset($item["code"]) ? $item["code"] : "";
+                $menuItemName = isset($item["name"]) ? $item["name"] : "";
+            ?>
+            <li class="promo__item promo__item--<?=$menuItemCode;?>">
+                <a class="promo__link" href="pages/all-lots.html"><?=htmlspecialchars($menuItemName);?></a>
             </li>
         <?php endforeach; ?>
     </ul>
@@ -21,24 +22,26 @@
     <ul class="lots__list">
         <!--заполните этот список из массива с товарами-->
         <?php foreach ($arAds as $arAd): ?>
+            <?php 
+                $adName = isset($arAd["name"]) ? $arAd["name"] : "";
+                $adCategory = isset($arAd["category"]) ? $arAd["category"] : "";
+                $adUrl = isset($arAd["image"]) ? $arAd["image"] : "";
+                $adPrice = isset($arAd["start_price"]) ? $arAd["start_price"] : "";
+                $adExperationDate = isset($arAd["date_close"]) ? $arAd["date_close"] : "";
+            ?>
             <li class="lots__item lot">
                 <div class="lot__image">
-                    <?php $adUrl = isset($arAd["IMAGE_URL"]) ? $arAd["IMAGE_URL"] : "";  ?>
                     <img src="<?=htmlspecialchars($adUrl);?>" width="350" height="260" alt="">
                 </div>
                 <div class="lot__info">
-                    <?php $adCategory = isset($arAd["CATEGORY"]) ? $arAd["CATEGORY"] : "";  ?>
                     <span class="lot__category"><?=htmlspecialchars($adCategory);?></span>
-                    <?php $adName = isset($arAd["NAME"]) ? $arAd["NAME"] : "";  ?>
                     <h3 class="lot__title"><a class="text-link" href="pages/lot.html"><?=htmlspecialchars($adName);?></a></h3>
                     <div class="lot__state">
                         <div class="lot__rate">
                             <span class="lot__amount">Стартовая цена</span>
-                            <?php $adPrice = isset($arAd["PRICE"]) ? $arAd["PRICE"] : "";?>
                             <span class="lot__cost"><?=price_format(htmlspecialchars($adPrice));?></span>
                         </div>
                             <?php
-                                $adExperationDate = isset($arAd["EXPIRATION_DATE"]) ? $arAd["EXPIRATION_DATE"] : "";
                                 $arExperationDate = get_dt_range(htmlspecialchars($adExperationDate));
                             ?>
                         <div class="lot__timer timer<?=(!empty($arExperationDate["TIME_LEFT"]) ? ' timer--finishing' : '');?>">
