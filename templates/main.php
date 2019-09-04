@@ -23,6 +23,7 @@
         <!--заполните этот список из массива с товарами-->
         <?php foreach ($arAds as $arAd): ?>
             <?php 
+                $adId = isset($arAd["id"]) ? $arAd["id"] : "";
                 $adName = isset($arAd["name"]) ? $arAd["name"] : "";
                 $adCategory = isset($arAd["category"]) ? $arAd["category"] : "";
                 $adUrl = isset($arAd["image"]) ? $arAd["image"] : "";
@@ -35,7 +36,7 @@
                 </div>
                 <div class="lot__info">
                     <span class="lot__category"><?=htmlspecialchars($adCategory);?></span>
-                    <h3 class="lot__title"><a class="text-link" href="pages/lot.html"><?=htmlspecialchars($adName);?></a></h3>
+                    <h3 class="lot__title"><a class="text-link" href="/lot.php/?id=<?=$adId;?>"><?=htmlspecialchars($adName);?></a></h3>
                     <div class="lot__state">
                         <div class="lot__rate">
                             <span class="lot__amount">Стартовая цена</span>

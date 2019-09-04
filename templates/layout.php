@@ -43,7 +43,10 @@
     </div>
 </header>
 
-<main class="container">
+<?php
+    $containerFlag = (isset($noContainer) && $noContainer == 'Y' ? true : false);
+?>
+<main <?=(!$containerFlag) ? 'class="container"' : '';?>>
     <?=$content;?>
 </main>
 </div>

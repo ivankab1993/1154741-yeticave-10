@@ -5,7 +5,6 @@ require_once("config/dbconn.php");
 if ($connect == false) {
     print('Ошибка подключения ' . mysqli_connect_error());
 } else {
-
     mysqli_set_charset($connect, 'utf-8');
     require_once("helpers.php");
     $is_auth = rand(0, 1);
@@ -49,33 +48,36 @@ if ($connect == false) {
     $arMenu = [];
     $arMenu = mysqli_fetch_all($menuResult, MYSQLI_ASSOC);
 
-    if (isset($_GET['lot-id'])) {
-        if (!empty($_GET['lot-id']) && is_numeric($_GET['lot-id'])) {
-            $adId = intval($_GET['lot-id']); 
+    if (isset($_GET['id'])) {
+        $adId = intval($_GET['id']); 
 
-            $adSQL = "SELECT 
-                l.id, l.date_create, l.name, l.description, l.image, l.start_price, l.date_close, l.step, l.category_id,
-                с.name AS category_name,
-                b.price, b.id AS bet_id
-                FROM lots l
-                LEFT JOIN categories с ON l.category_id = с.id
-                LEFT JOIN bet b ON l.id = b.lot_id
-                WHERE l.id = '$adId'
-                ORDER BY bet_id DESC
-                LIMIT 1";
-            $adResult = mysqli_query($connect, $adSQL);
-            $arAd = [];
-            $arAd = mysqli_fetch_all($adResult, MYSQLI_ASSOC);
+        $adSQL = "SELECT 
+            l.id, l.date_create, l.name, l.description, l.image, l.start_price, l.date_close, l.step, l.category_id,
+            с.name AS category_name,
+            b.price, b.id AS bet_id
+            FROM lots l
+            LEFT JOIN categories с ON l.category_id = с.id
+            LEFT JOIN bet b ON l.id = b.lot_id
+            WHERE l.id = '$adId'
+            ORDER BY bet_id DESC
+            LIMIT 1";
 
+        $adResult = mysqli_query($connect, $adSQL);
+        $arAd = [];
+        $arAd = mysqli_fetch_all($adResult, MYSQLI_ASSOC);
+
+        if (!empty($arAd)) {
             $page_content = include_template('lot.php', [
+                "arMenu" => $arMenu,
                 "arAd" => $arAd,
             ]);
+        } else {
+            http_response_code(404);
+            $page_content = include_template('404.php', [
+                "message_404" => "Статус 404. Запрашиваемая страница не найдена",
+            ]);
         }
-    } else {
-        $page_content = include_template('main.php', [
-        	"arMenu" => $arMenu,
-        	"arAds" => $arAds,
-        ]);
+
     }
 
     $layout_content = include_template('layout.php', [
@@ -84,6 +86,7 @@ if ($connect == false) {
     	"user_name" => $user_name,
     	"content" => $page_content,
     	"arMenu" => $arMenu,
+        "noContainer" => 'Y',
     ]);
     print($layout_content);
 }
